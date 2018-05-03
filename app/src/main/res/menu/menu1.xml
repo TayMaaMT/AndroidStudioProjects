@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/Expn_ces"
+        android:title="Expences"
+
+        >
+
+    </item>
+    <item android:id="@+id/Sal_ary"
+        android:title="Salary"
+
+        >
+
+    </item>
+    <item android:id="@+id/Cata_gory"
+        android:title="Catagories"
+
+        >
+
+    </item>
+
+    <item android:id="@+id/Statis_tic"
+        android:title="Statistic"
+
+        >
+
+    </item>
+    <item android:id="@+id/Hist_ory"
+        android:title="History"
+
+        >
+
+    </item>
+    <item android:id="@+id/Notifica_tion"
+        android:title="Notification"
+
+        >
+
+    </item>
+
+</menu>
