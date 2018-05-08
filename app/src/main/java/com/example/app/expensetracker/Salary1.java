@@ -1,5 +1,6 @@
 package com.example.app.expensetracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static cn.pedant.SweetAlert.SweetAlertDialog.ERROR_TYPE;
+import static cn.pedant.SweetAlert.SweetAlertDialog.SUCCESS_TYPE;
 
 public class Salary1 extends AppCompatActivity {
 
@@ -133,7 +139,7 @@ public class Salary1 extends AppCompatActivity {
 //        }
 
         if (result) {
-            Toast.makeText(Salary1.this, "OK", Toast.LENGTH_SHORT).show();
+         Utils.Toast(this,"Add new salary","Added successfully !!",SUCCESS_TYPE);
             salayAmot.setText("");
             dayOfReset.setText("");
             monthOfReset.setText("");
@@ -145,7 +151,8 @@ public class Salary1 extends AppCompatActivity {
 
 
         } else
-            Toast.makeText(Salary1.this, "NO", Toast.LENGTH_SHORT).show();
+            System.out.println("");
+         //   Utils.Toast(this,"Add new salary","There is a problem try agin",ERROR_TYPE);
 
     }
 

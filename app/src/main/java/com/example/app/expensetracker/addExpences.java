@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static cn.pedant.SweetAlert.SweetAlertDialog.ERROR_TYPE;
+import static cn.pedant.SweetAlert.SweetAlertDialog.SUCCESS_TYPE;
+
 public class addExpences extends AppCompatActivity {
 
     Db_Budget db = new Db_Budget(this);
@@ -84,7 +87,7 @@ public class addExpences extends AppCompatActivity {
             return;
         }
         if (!checkSalary(Double.parseDouble(expenseAmount.getText().toString()))) {
-            Toast.makeText(this, "salary خلص", Toast.LENGTH_LONG).show();
+            Utils.Toast(this,"SALARY","خلص الراتب !! !!",ERROR_TYPE);
             return;
         }
 
@@ -93,9 +96,10 @@ public class addExpences extends AppCompatActivity {
         boolean result = db.insertExpensesData(n2, n3, n1);
 
         if (result) {
-            Toast.makeText(addExpences.this, "OK", Toast.LENGTH_SHORT).show();
+            Utils.Toast(this,"Add ","Added successfully !!",SUCCESS_TYPE);
             Intent intent = new Intent(addExpences.this, Expences.class);
             startActivity(intent);
+            finish();
 //            CatName.setText("");
             expenseName.setText("");
             expenseAmount.setText("");
@@ -118,7 +122,7 @@ public class addExpences extends AppCompatActivity {
 
             }
         } else {
-            Toast.makeText(this, "choose category please", Toast.LENGTH_LONG).show();
+            Utils.Toast(this,"category failed","choose category !!",ERROR_TYPE);
         }
 
         return false;

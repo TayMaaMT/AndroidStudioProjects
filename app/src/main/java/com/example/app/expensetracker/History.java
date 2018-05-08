@@ -56,8 +56,10 @@ public class History extends AppCompatActivity {
     }
     public void showData(){
         ArrayList<String> listData = db.getExpensesRecord();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this ,android.R.layout.simple_list_item_1,listData);
-        lst.setAdapter(arrayAdapter);
+        if(listData!=null&&!listData.isEmpty()) {
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listData);
+            lst.setAdapter(arrayAdapter);
+        }
 
     }
 }

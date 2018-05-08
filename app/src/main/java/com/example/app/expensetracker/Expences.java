@@ -170,6 +170,15 @@ public class Expences extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        double remaider = (new Db_Budget(this).SalaryDB().getSalary()) - (new Db_Budget(this).getSumExpenses());
+        Remainder.setText(String.valueOf(remaider));
+        double total = (new Db_Budget(this).getSumExpenses());
+        Total.setText(String.valueOf(total));
+
+    }
 }
 
 

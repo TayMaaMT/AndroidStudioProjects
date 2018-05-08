@@ -194,6 +194,8 @@ public class Db_Budget extends SQLiteOpenHelper {
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
+        if(day==0)
+            return null;
         return calendar;
     }
 

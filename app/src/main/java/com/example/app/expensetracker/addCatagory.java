@@ -12,6 +12,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cn.pedant.SweetAlert.SweetAlertDialog.ERROR_TYPE;
+import static cn.pedant.SweetAlert.SweetAlertDialog.SUCCESS_TYPE;
+
 public class addCatagory extends AppCompatActivity {
 
     private EditText addCat, addPercent;
@@ -43,18 +46,22 @@ public class addCatagory extends AppCompatActivity {
         double n2 = Double.parseDouble(addPercent.getText().toString());
 
         if(!checkPercent(n2)){
-            Toast.makeText(addCatagory.this, "التصنيفات تجاوزت نسبتها 100%", Toast.LENGTH_SHORT).show();
+            Utils.Toast(this,"failed","التصنيفات تجاوزت 100% !!",ERROR_TYPE);
 
         }else {
 
             boolean result = db.insertCatagoryData(n1, n2);
             if (result) {
-                Toast.makeText(addCatagory.this, "OK", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(addCatagory.this, Catagory.class);
-                startActivity(intent);
+                Utils.Toast(this, new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+
+                    }
+                }, "Add", "Added successfully !!", SUCCESS_TYPE);
+
                 addCat.setText("");
                 addPercent.setText("");
-                finish();
 
             } else
                 Toast.makeText(addCatagory.this, "NO", Toast.LENGTH_SHORT).show();
