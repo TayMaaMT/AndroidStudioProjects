@@ -97,8 +97,7 @@ public class addExpences extends AppCompatActivity {
 
         if (result) {
             Utils.Toast(this,"Add ","Added successfully !!",SUCCESS_TYPE);
-            Intent intent = new Intent(addExpences.this, Expences.class);
-            startActivity(intent);
+
             finish();
 //            CatName.setText("");
             expenseName.setText("");

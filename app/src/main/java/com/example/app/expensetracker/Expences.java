@@ -37,6 +37,7 @@ public class Expences extends AppCompatActivity {
     TextView Total;
 
     private addExpences addE = new addExpences();
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +127,7 @@ public class Expences extends AppCompatActivity {
 
     public void showData() {
         ArrayList<String> listData = db.getExpensesRecord();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listData);
+         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listData);
         lst.setAdapter(arrayAdapter);
         //lst.setBackgroundColor(Color.parseColor("#ffffff"));
 
@@ -178,6 +179,10 @@ public class Expences extends AppCompatActivity {
         double total = (new Db_Budget(this).getSumExpenses());
         Total.setText(String.valueOf(total));
 
+        ArrayList<String> listData = db.getExpensesRecord();
+        arrayAdapter.clear();
+        arrayAdapter.addAll(listData);
+        arrayAdapter.notifyDataSetChanged();
     }
 }
 

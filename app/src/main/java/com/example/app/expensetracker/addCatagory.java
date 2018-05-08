@@ -72,10 +72,11 @@ public class addCatagory extends AppCompatActivity {
         ArrayList<Category> list = new Db_Budget(this).getCatagoryList2();
 
         double sum = 0.0;
+        sum+=newCategory;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getPercent();
         }
-        if (sum < 100)
+        if (sum <= 100)
             return true;
         return false;
     }

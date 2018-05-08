@@ -17,6 +17,8 @@ public class Catagory extends AppCompatActivity {
     public ListView lstCatagory;
 
  private  addCatagory cat =new addCatagory();
+    private ArrayAdapter arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +71,20 @@ public class Catagory extends AppCompatActivity {
     public void addcaragory(View view) {
         Intent intent = new Intent(Catagory.this, addCatagory.class);
         startActivity(intent);
-        finish();
     }
     public void showCatoagoryList() {
         ArrayList<String> listData = db.getCatagoryList();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listData);
+         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listData);
         lstCatagory.setAdapter(arrayAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ArrayList<String> listData = db.getCatagoryList();
+        arrayAdapter.clear();
+        arrayAdapter.addAll(listData);
+        arrayAdapter.notifyDataSetChanged();
+    }
 }
