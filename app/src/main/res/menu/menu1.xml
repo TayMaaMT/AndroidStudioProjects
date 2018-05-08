@@ -21,23 +21,13 @@
 
     </item>
 
-    <item android:id="@+id/Statis_tic"
-        android:title="Statistic"
 
-        >
-
-    </item>
     <item android:id="@+id/Hist_ory"
         android:title="History"
 
         >
 
     </item>
-    <item android:id="@+id/Notifica_tion"
-        android:title="Notification"
 
-        >
-
-    </item>
 
 </menu>

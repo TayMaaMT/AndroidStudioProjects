@@ -9,11 +9,14 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="434dp"
-        android:layout_height="78dp"
+        android:layout_height="134dp"
         android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView13"
@@ -30,18 +33,33 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.393"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="66dp"
+            android:layout_height="77dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.073"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.466" />
+            app:srcCompat="@drawable/catag" />
 
     </android.support.constraint.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="413dp"
-        android:layout_height="533dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="573dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -56,8 +74,9 @@
 
             <ListView
                 android:id="@+id/ListView_Cats"
-                android:layout_width="397dp"
-                android:layout_height="521dp"
+                android:layout_width="426dp"
+                android:layout_height="543dp"
+                android:background="@drawable/addexp"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="72dp" />
@@ -78,7 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.97"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:srcCompat="@drawable/plus25"
         tools:ignore="OnClick" />
     <![CDATA[
 
