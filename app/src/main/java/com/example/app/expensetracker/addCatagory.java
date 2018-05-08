@@ -15,9 +15,8 @@ import java.util.List;
 public class addCatagory extends AppCompatActivity {
 
     private EditText addCat, addPercent;
-   // public ListView lstCatagory;
+    // public ListView lstCatagory;
     Db_Budget db = new Db_Budget(this);
-
 
 
     @Override
@@ -28,21 +27,25 @@ public class addCatagory extends AppCompatActivity {
         addCat = (EditText) (findViewById(R.id.EditText_addCat));
         addPercent = (EditText) (findViewById(R.id.EditText_percent));
 
-       // lstCatagory = (ListView) (findViewById(R.id.ListView_Cats));
+        // lstCatagory = (ListView) (findViewById(R.id.ListView_Cats));
 
     }
 
     public void cancleaddcatagory(View view) {
-        Intent intent = new Intent(addCatagory.this, Catagory.class);
-        startActivity(intent);
+        finish();
     }
 
 
+    public void savectagory(View view) {
 
-        public void savectagory(View view){
 
-            String n1 = addCat.getText().toString();
-            double n2 = Double.parseDouble(addPercent.getText().toString());
+        String n1 = addCat.getText().toString();
+        double n2 = Double.parseDouble(addPercent.getText().toString());
+
+        if(!checkPercent(n2)){
+            Toast.makeText(addCatagory.this, "التصنيفات تجاوزت نسبتها 100%", Toast.LENGTH_SHORT).show();
+
+        }else {
 
             boolean result = db.insertCatagoryData(n1, n2);
             if (result) {
@@ -51,12 +54,24 @@ public class addCatagory extends AppCompatActivity {
                 startActivity(intent);
                 addCat.setText("");
                 addPercent.setText("");
+                finish();
 
             } else
                 Toast.makeText(addCatagory.this, "NO", Toast.LENGTH_SHORT).show();
-
         }
+    }
 
+    public boolean checkPercent(double newCategory) {
+        ArrayList<Category> list = new Db_Budget(this).getCatagoryList2();
+
+        double sum = 0.0;
+        for (int i = 0; i < list.size(); i++) {
+            sum += list.get(i).getPercent();
+        }
+        if (sum < 100)
+            return true;
+        return false;
+    }
 
 
 }

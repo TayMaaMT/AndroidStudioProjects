@@ -3,6 +3,7 @@ package com.example.app.expensetracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,26 +17,36 @@ import java.util.ArrayList;
 
 public class addExpences extends AppCompatActivity {
 
-    Db_Budget db =new Db_Budget(this);
+    Db_Budget db = new Db_Budget(this);
     //ListView lst ;
-    EditText expenseName,expenseAmount;
+    EditText expenseName, expenseAmount;
     Spinner CatName;
     String n1;
+    private ArrayList<Category> categories;
+    Category category;
+    int pos ;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expences);
-        CatName =(Spinner)(findViewById(R.id.EditText_CatName));
-        expenseName=(EditText)(findViewById(R.id. EditText_expenseName));
-        expenseAmount=(EditText)(findViewById(R.id.EditText_expenseAmot));
+        CatName = (Spinner) (findViewById(R.id.EditText_CatName));
+        expenseName = (EditText) (findViewById(R.id.EditText_expenseName));
+        expenseAmount = (EditText) (findViewById(R.id.EditText_expenseAmot));
 
         ArrayList<String> listData = new ArrayList<>();
         listData.add("Select category");
-        listData.addAll(db.getCatagoryList2());
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listData){
+        categories = db.getCatagoryList2();
+
+        for (int i = 0; i < categories.size(); i++) {
+            listData.add(categories.get(i).getName());
+        }
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData) {
             @Override
             public boolean isEnabled(int position) {
-                if(position==0)
+                if (position == 0)
                     return false;
                 else
                     return true;
@@ -47,8 +58,8 @@ public class addExpences extends AppCompatActivity {
         CatName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                n1=arrayAdapter.getItem(position);
-                Log.d("array_item",n1);
+                n1 = arrayAdapter.getItem(position);
+                pos =position;
             }
 
             @Override
@@ -59,27 +70,58 @@ public class addExpences extends AppCompatActivity {
     }
 
 
-
     public void canceladdexpences(View view) {
-        Intent intent = new Intent(addExpences.this ,Expences.class );
-        startActivity(intent);
+       finish();
     }
 
     public void expenseSave(View view) {
-//        String n1 = CatName.getText().toString();
+        if (TextUtils.isEmpty(expenseName.getText())) {
+            expenseName.setError("add expense ");
+            return;
+        }
+        if (TextUtils.isEmpty(expenseAmount.getText())) {
+            expenseAmount.setError("add expense ");
+            return;
+        }
+        if (!checkSalary(Double.parseDouble(expenseAmount.getText().toString()))) {
+            Toast.makeText(this, "salary خلص", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         String n2 = expenseName.getText().toString();
         int n3 = Integer.parseInt(expenseAmount.getText().toString());
-        boolean result =  db.insertExpensesData( n2,  n3,  n1);
+        boolean result = db.insertExpensesData(n2, n3, n1);
+
         if (result) {
             Toast.makeText(addExpences.this, "OK", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(addExpences.this, Expences.class);
+            startActivity(intent);
 //            CatName.setText("");
             expenseName.setText("");
             expenseAmount.setText("");
-        }
-        else
+        } else
+
             Toast.makeText(addExpences.this, "NO", Toast.LENGTH_SHORT).show();
 
+
+    }
+
+    boolean checkSalary(double expnse) {
+        category = categories.get(pos-1);
+
+        double salary = new Db_Budget(this).SalaryDB().getSalary();
+        if (category != null) {
+            if (expnse != 0) {
+                double exPercent = category.getPercent() * salary/100;
+                if (exPercent >= expnse)
+                    return true;
+
+            }
+        } else {
+            Toast.makeText(this, "choose category please", Toast.LENGTH_LONG).show();
+        }
+
+        return false;
     }
 
 }

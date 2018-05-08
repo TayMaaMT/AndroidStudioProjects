@@ -40,11 +40,13 @@ public class Catagory extends AppCompatActivity {
         if (id == R.id.Expn_ces) {
             Intent intent = new Intent(Catagory.this, Expences.class);
             startActivity(intent);
+
         }
 
         if (id == R.id.Sal_ary) {
             Intent intent = new Intent(Catagory.this, Salary1.class);
             startActivity(intent);
+
         }
 
         // if (id == R.id.Cata_gory) {
@@ -53,14 +55,12 @@ public class Catagory extends AppCompatActivity {
 
 
         if (id == R.id.Hist_ory) {
-            //Intent intent = new Intent(Catagory.this ,History.class );
-            //startActivity(intent);
+            Intent intent = new Intent(Catagory.this ,History.class );
+            startActivity(intent);
+
         }
 
-        if (id == R.id.Notifica_tion) {
-            //Intent intent = new Intent(Catagory.this ,Notification.class );
-            // startActivity(intent);
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -69,6 +69,7 @@ public class Catagory extends AppCompatActivity {
     public void addcaragory(View view) {
         Intent intent = new Intent(Catagory.this, addCatagory.class);
         startActivity(intent);
+        finish();
     }
     public void showCatoagoryList() {
         ArrayList<String> listData = db.getCatagoryList();

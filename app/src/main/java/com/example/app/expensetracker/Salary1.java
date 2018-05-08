@@ -25,10 +25,14 @@ public class Salary1 extends AppCompatActivity {
     EditText yearOfReset;
     Db_Budget db = new Db_Budget(this);
     TextView salatxt;
+   // TextView Remainder;
+    TextView restDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Salary salary = new Db_Budget(this).SalaryDB() ;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salary1);
         dayOfReset = (EditText) (findViewById(R.id.EditText_dayOfReset));
@@ -36,8 +40,10 @@ public class Salary1 extends AppCompatActivity {
         monthOfReset = (EditText) (findViewById(R.id.EditText_monthOfReset));
         yearOfReset = (EditText) (findViewById(R.id.EditText_yearOfReset));
         salatxt = (TextView) (findViewById(R.id.textView_Salary));
+       // Remainder =findViewById(R.id.textView_Remainder);
+        restDate =findViewById(R.id.textView_dateOfReset);
 
-//        if()
+
 
 
         Calendar resetdate = new Db_Budget(this).getDate();
@@ -45,14 +51,19 @@ public class Salary1 extends AppCompatActivity {
         dateNow.setTime(new Date());
         if (resetdate != null) {
 
-            if ((dateNow.get(Calendar.DAY_OF_MONTH) == resetdate.get(Calendar.DAY_OF_MONTH))
-                    && (dateNow.get(Calendar.MONTH) + 1 == resetdate.get(Calendar.MONTH))
-                    && (dateNow.get(Calendar.YEAR) == resetdate.get(Calendar.YEAR))) {
+            if ((dateNow.get(Calendar.DAY_OF_MONTH) == salary.getDay())
+                    && (dateNow.get(Calendar.MONTH) + 1 == salary.getMonth())
+                    && (dateNow.get(Calendar.YEAR) == salary.getYear())) {
                 new Db_Budget(this).deletCategory();
             }
         }
 
-        salatxt.setText(new Db_Budget(this).SalaryDB() + "");
+
+        salatxt.setText(salary.getSalary()+"");
+        restDate.setText(salary.getDay()+"/"+salary.getMonth()+"/"+salary.getYear()+"");
+
+
+
 
     }
 
@@ -73,10 +84,6 @@ public class Salary1 extends AppCompatActivity {
             startActivity(intent);
         }
 
-       /* if (id == R.id.Sal_ary) {
-            Intent intent = new Intent(Salary1.this ,Salary1.class );
-            startActivity(intent);
-        }*/
 
         if (id == R.id.Cata_gory) {
             Intent intent = new Intent(Salary1.this, Catagory.class);
@@ -85,22 +92,16 @@ public class Salary1 extends AppCompatActivity {
 
 
         if (id == R.id.Hist_ory) {
-            // Intent intent = new Intent(Salary1.this ,History.class );
-            // startActivity(intent);
+             Intent intent = new Intent(Salary1.this ,History.class );
+             startActivity(intent);
         }
 
-        if (id == R.id.Notifica_tion) {
-            //Intent intent = new Intent(Salary1.this ,Notification.class );
-            // startActivity(intent);
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void date(View view) {
-        Intent intent = new Intent(Salary1.this, addDate.class);
-        startActivity(intent);
-    }
+
 
     public void SaveSalary(View view) {
         if (TextUtils.isEmpty(salayAmot.getText())) {
@@ -120,29 +121,33 @@ public class Salary1 extends AppCompatActivity {
             return;
         }
 
-        //  salatxt.setText(String.valueOf(db.SalaryDB()));
-
         double n1 = Double.parseDouble(salayAmot.getText().toString());
         int n2 = Integer.parseInt(dayOfReset.getText().toString());
         int n3 = Integer.parseInt(monthOfReset.getText().toString());
         int n4 = Integer.parseInt(yearOfReset.getText().toString());
+//        if(new Db_Budget(this).SalaryDB()==0.0){
+            boolean result = db.insertSalaryData(n1, n2, n3, n4);
+//
+//        }else{
+//
+//        }
 
-        boolean result = db.insertSalaryData(n1, n2, n3, n4);
         if (result) {
             Toast.makeText(Salary1.this, "OK", Toast.LENGTH_SHORT).show();
             salayAmot.setText("");
             dayOfReset.setText("");
+            monthOfReset.setText("");
+            yearOfReset.setText("");
             salatxt.setText(n1 + "");
+            Salary salary = new Db_Budget(this).SalaryDB() ;
+            salatxt.setText(salary.getSalary()+"");
+            restDate.setText(salary.getDay()+"/"+salary.getMonth()+"/"+salary.getYear()+"");
+
 
         } else
             Toast.makeText(Salary1.this, "NO", Toast.LENGTH_SHORT).show();
 
     }
-   /* public void showSalaryData(){
-
-
-    }
-*/
 
 }
 
